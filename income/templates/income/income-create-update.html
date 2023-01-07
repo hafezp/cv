@@ -1,0 +1,67 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<!-- <link rel="stylesheet" href="../../static/income/list.css">  -->
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+
+
+<form enctype = "multipart/form-data" method="post" >
+  {% csrf_token %}
+  <div class="home">
+    <table style='width:50%; margin-left:320px' class="table">
+      <thead>
+        <tr>
+          <th>Create</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>کاربر {{form.user}}</td>
+        </tr>
+        <tr>
+          <td>توضیحات {{form.type}}</td>
+        </tr>
+        <tr>
+          <td> 
+            کتگوری {{form.category}} <a href="{% url 'income:create_cat' %}">
+                                      <img src="/static/income/img/icon-addlink.svg" alt="Add">
+                                    </a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{form.select}}</td>
+        </tr>
+        {% if form.price.errors %}
+            <tr style="background-color: red;">
+              <td style="text-align:center; background-color: red ;">{{ form.price.errors }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+          <td>مبلغ (به تومان) {{form.price}}</td>
+        </tr>
+        {% if form.thumbnail.errors %}
+            <tr style="background-color: red;">
+              <td style="text-align:center; background-color: red ;">{{ form.thumbnail.errors }}</td>
+            </tr>
+        {% endif %}        
+        <tr>
+          <td>فاکتور {{form.thumbnail}} {{form.thumbnail.help_text}}</td>
+        </tr>
+        <tr>
+          <td> {{form.publish}} </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class='profile btn-primary' type="submit">create</button>
+    <br>
+  </div>
+</form>
+
+
+{% endblock %}

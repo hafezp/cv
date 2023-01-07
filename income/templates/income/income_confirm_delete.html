@@ -1,0 +1,27 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<form enctype = "multipart/form-data" method="post" >
+    {% csrf_token %}
+    <div class="home">
+      <table style='width:50%; margin-left:320px' class="table">
+        <thead>
+          <tr>
+            <th class='danger'><p>  آیا از حذف " {{ object.type }} " مطمئن هستید ؟</p></th>
+          </tr>
+        </thead>
+      </table>
+      <button class='profile btn-danger' type="submit">delete</button>
+    </div>
+  </form>
+
+{% endblock %}
+
+

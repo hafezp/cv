@@ -1,0 +1,97 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+
+{% if income %} 
+  <div class="home">
+      <table class="table">
+          <thead>
+            <tr>
+              <th>زمان انتشار</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Select</th>
+              <th>Price</th>
+              <th>User</th>
+              <th>Image</th>
+              <th>Delete</th>
+              <th>ردیف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for income in income %}
+              <tr>
+                <td>{{income.jpublish}}</td>
+                <td><a href="{% url 'income:detail' income.pk %}">{{income.type}}</a></td>
+                <td>{% if income.category %}
+                      {% for cat in income.category.all %}
+                        <p>{{cat.title}}</p>
+                      {% endfor %}
+                    {% else %} 
+                      <p>category not found</p>
+                    {% endif %}
+                </td> 
+                <td>{% if income.select == 'in' %}
+                      <p>دخل</p>
+                    {% else %}
+                      <p>خرج</p>
+                    {% endif %}
+                </td>
+                <td>{{income.persianized_price}}</td>
+                <td>{{income.user}}</td>
+                <td>{% if income.thumbnail %}
+                  <img width=80 src="{{income.thumbnail.url}}">
+                  {% else %}
+                    <p>فاقد عکس</p>
+                  {% endif %}</td>
+                <td><a href="{% url 'income:delete' income.pk %}">Remove</a></td>
+                <td>{{ forloop.counter }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+  </div>
+{% else %}
+  <h1>  SEARCH NOT FOUND ! !</h1>
+{% endif %}
+
+
+{% if is_paginated %}
+  <ul class="pagination">
+
+    {% if page_obj.has_previous %}
+      <!-- <li><a href="?page={{ page_obj.previous_page_number }}?q={{query}}">older</a></li> -->
+      <li><a href="{% url 'income:search' page_obj.previous_page_number %}?q={{query}}">older</a></li>
+    {% else %}
+      <li class="disabled"><a>older</a></li>
+    {% endif %}
+
+    {% for page in paginator.page_range %}
+      {% if page == page_obj.number %}
+        <li class="active"><a href="{% url 'income:search' page %}?q={{query}}">{{ page }}</a></li>
+      {% else %}
+        <li><a href="{% url 'income:search' page %}?q={{query}}">{{ page }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <!-- <li><a href="?page={{ page_obj.next_page_number }}?q={{query}}">newer</a></li> -->
+      <li><a href="{% url 'income:search' page_obj.next_page_number %}?q={{query}}">newer</a></li>
+    {% else %}
+      <li class="disabled"><a>newer</a></li>
+    {% endif %}
+
+  </ul>
+{% endif %}
+
+
+{% endblock %}
+
+

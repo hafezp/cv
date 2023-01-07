@@ -1,0 +1,68 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    
+<table style='width:50%; margin-left:320px' class="table">
+    <thead>
+      <tr>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{% if income.thumbnail %} 
+          <img width=80 src="{{income.thumbnail.url}}">
+        {% else %}
+          <p>فاقد عکس</p>
+        {% endif %}</td>
+      </tr>
+      <tr>
+        <td>{{object.user}}</td>
+      </tr>
+      <tr>
+        <td>{{object.type}}</td>
+      </tr>
+      <tr>
+        <td>
+          {% for cat in object.category.all %}
+            {% if cat %}
+              <p>{{cat.title}}</p>
+            {% else %}
+              <p>no image</p>
+            {% endif %}         
+          {% endfor %}
+        </td> 
+      </tr>
+      <tr>
+        <td>
+          {% if income.select == 'in' %}
+            <p>دخل</p>
+          {% else %}
+            <p>خرج</p>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>{{object.persianized_price}}</td>
+      </tr>
+      <tr>
+        <td><a href="{% url 'income:update' income.pk %}">اصلاح</a></td>
+      </tr>
+    </tbody>
+</table>
+
+
+
+{% comment %} <h2>بازدید ها :{{ object.hits.count }}</h2> {% endcomment %}
+
+
+{% endblock %}
+
+

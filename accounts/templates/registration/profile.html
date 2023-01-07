@@ -1,0 +1,42 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<form enctype = "multipart/form-data" method="post" >{% csrf_token %}
+    <div class="home">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>email</th> 
+                <th>phone_number</th>
+                <th>full_name</th>
+                <th>Password</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>{{form.email}}</td>
+                <td>{{form.phone_number}}</td>
+                <td>{{form.full_name}}</td>
+                <td><p><a href="{% url 'account:password_change' %}">Change</a></p></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class='profile btn-primary' type="submit">submit</button> 
+    </div>
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+

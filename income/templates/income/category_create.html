@@ -1,0 +1,22 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+
+
+
+<form enctype = "multipart/form-data" method="post" >{% csrf_token %}
+
+    {{ form.title }}
+
+    <button type="submit">submit</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends '_AccountMianLayout.html' %}
+{% load static %}
+
+
+{% block title  %} Verify {% endblock %}
+{% block body %}
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send">
+    </form>
+
+
+{% endblock %}
+
+
+

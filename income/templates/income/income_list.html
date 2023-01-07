@@ -1,0 +1,94 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+ 
+
+{% if income %}
+  <div class="home">
+      <table class="table">
+          <thead>
+            <tr>
+              <th>زمان انتشار</th>
+              <th>توضیحات</th>
+              <th>دسته بندی</th>
+              <th>دخل/خرج</th>
+              <th>مبلغ</th>
+              <th>کاربر</th>
+              <th>فاکتور</th>
+              <th>حذف</th>
+              <th>ردیف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for income in income %}
+              <tr>
+                
+                <td>{{income.jpublish}}</td>
+                <td><a href="{% url 'income:detail' income.pk %}">{{income.type}}</a></td>
+                <td>{% if category %}
+                      {% for cat in income.category.all %}
+                        <p>{{cat.title}}</p>
+                      {% endfor %}
+                    {% else %} 
+                      <p>no category</p>
+                    {% endif %}
+                </td> 
+                <td>{% if income.select == 'in' %}
+                      <p>دخل</p>
+                    {% else %}
+                      <p>خرج</p>
+                    {% endif %}
+                </td>
+                <td>{{income.persianized_price}}</td>
+                <td>{{income.user}}</td>
+                <td>{% if income.thumbnail %}
+                  <img width=80 src="{{income.thumbnail.url}}">
+                  {% else %}
+                    <p>فاقد عکس</p>
+                  {% endif %}</td>
+                <td><a href="{% url 'income:delete' income.pk %}">حذف</a></td>
+                <td>{{ forloop.counter }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+  </div>
+{% else %}
+  <h1 style="text-align: center;"> No Content !</h1>
+{% endif %}
+
+{% if is_paginated %}
+  <ul class="pagination">
+
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">older</a></li>
+    {% else %}
+      <li class="disabled"><a>older</a></li>
+    {% endif %}
+
+    {% for page in paginator.page_range %}
+      {% if page == page_obj.number %}
+        <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+      {% else %}
+        <li><a href="?page={{ page }}">{{ page }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">newer</a></li>
+    {% else %}
+      <li class="disabled"><a>newer</a></li>
+    {% endif %}
+
+  </ul>
+{% endif %}
+
+
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends '_MainLayout.html' %}
+{% load static %}
+
+
+{% block header_ref %}
+<link rel="stylesheet" href="{% static 'income/list.css' %}">
+{% endblock %}
+
+{% block body %}
+
+     <!-- <h1>your total earning is: {{sum_earning.sum_earning}}</h1>
+     <h1>your total spending is: {{sum_spending.sum_spending}}</h1> -->
+     <div style="text-align: center;">
+          {% if new_v1 == 'NoData' %}
+               <h1> No Content !</h1>
+          {% else %}
+               <h1>کل مبلغ درآمد: {{new_v1}}</h1>
+               <h1>کل مبلغ هزینه کرد: {{new_v2}}</h1>
+               <h1>بالانس: {{new_diff}}</h1>
+          {% endif %}
+     </div>
+
+
+{% endblock %}

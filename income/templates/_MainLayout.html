@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include 'income/header_ref.html' %}
+    {% block header_ref %}{% endblock %}
+  </head>
+  <body>
+
+    <!--Header-->
+    <div class="header">
+      <h1>Hafez Paidary</h1> 
+      <p>Welcome to Income Management System</p>
+    </div>  
+    
+    <!--Navigation-->
+    <ul>
+       {% if request.user.is_authenticated %}
+         <li><a href="{% url 'account:logout' %}">Logout</a></li>
+       {% else %}
+         <li><a href="{% url 'account:login' %}">login</a></li>
+       {% endif %}
+      <!-- <li><a href="/admin">Admin</a></li> -->
+      <li><a href="{% url 'income:home' %}">Home</a></li>
+      <li><a href="{% url 'income:incomelist' %}">List</a></li>
+      <li><a href="{% url 'income:create' %}">Create</a></li>
+      <li><a href="{% url 'account:profile' %}">Profile</a></li>
+      {% if not request.user.is_admin %}
+       <li><a href="{% url 'account:verify_code' %}">Verify</a></li>
+      {% else %}
+       <li><a style="color:red; pointer-events: none;">Verified</a></li>
+      {% endif %}
+       <li>
+         <form action="{% url 'income:search' %}" method="get">
+           <input type="text" placeholder="جستـجو" value="{{ request.GET.q }}" name="q"/>
+           <button type="submit">search</button>
+         </form>
+       </li>
+      <!-- <li><a href="{% url 'income:create_cat' %}">create cat</a></li> -->
+      <h4 style="color: #f9f9f9;">سلام {{request.user.full_name}} خوش آمدید</h4>
+
+    </ul>
+  
+
+    {% block body %}
+
+    {% endblock %}
+
+  </body>
+</html>
