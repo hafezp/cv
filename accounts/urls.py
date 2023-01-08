@@ -12,8 +12,8 @@ from .views import (Login,
                     UserRegisterVerifyCodeView,
                     )
 
-from django.contrib.auth.views import (PasswordChangeDoneView,
-                                       PasswordResetDoneView,
+from django.contrib.auth.views import (PasswordResetDoneView,
+                                       PasswordChangeDoneView,
                                        PasswordResetCompleteView)
 
 app_name = 'account'

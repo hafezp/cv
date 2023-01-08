@@ -1,9 +1,12 @@
 
 
-from django.contrib.auth.views 						import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views 						import (PasswordChangeView,
+															PasswordResetView,
+															PasswordResetConfirmView)
+
 from django.contrib.auth.mixins 					import LoginRequiredMixin
 from django.contrib.auth.views 						import LoginView, LogoutView
-from django.views.generic 							import UpdateView, CreateView
+from django.views.generic 							import UpdateView
 from django.urls 									import reverse_lazy
 from django.http 									import HttpResponse
 from django.shortcuts 								import render, redirect
@@ -93,12 +96,17 @@ class PasswordChange(PasswordChangeView):
 	success_url = reverse_lazy('account:password_change_done')
 
 
+
+
 class PasswordReset(PasswordResetView):
 	success_url = reverse_lazy('account:password_reset_done')
+
+
 	
 
 class PasswordResetConfirm(PasswordResetConfirmView):
 	success_url = reverse_lazy('account:password_reset_complete')
+
 
 
 class UserRegisterVerifyCodeView(LoginRequiredMixin, View):
