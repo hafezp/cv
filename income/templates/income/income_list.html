@@ -46,7 +46,7 @@
                     {% endif %}
                 </td>
                 <td>{{income.persianized_price}}</td>
-                <td>{{income.user}}</td>
+                <td>{{income.user.full_name}}</td>
                 <td>{% if income.thumbnail %}
                   <img width=80 src="{{income.thumbnail.url}}">
                   {% else %}

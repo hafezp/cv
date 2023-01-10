@@ -75,7 +75,7 @@ class Income(TimeStampedModel):
 		
 	def thumbnail_tag(self):
 		if self.thumbnail:
-			return format_html("<img width=80 src='{}' >".format(self.thumbnail.url))
+			return format_html("<img width=80 src='{}' >".format(self.thumbnail.url)) 
 		else:
 			return "no image"
 	thumbnail_tag.short_description = 'فاکتور'

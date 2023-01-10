@@ -23,12 +23,7 @@
       <li><a href="{% url 'income:home' %}">Home</a></li>
       <li><a href="{% url 'income:incomelist' %}">List</a></li>
       <li><a href="{% url 'income:create' %}">Create</a></li>
-      <li><a href="{% url 'account:profile' %}">Profile</a></li>
-      {% if not request.user.is_admin %}
-       <li><a href="{% url 'account:verify_code' %}">Verify</a></li>
-      {% else %}
-       <li><a style="color:red; pointer-events: none;">Verified</a></li>
-      {% endif %}
+      <li><a style="margin-left: 5px;" href="{% url 'account:profile' %}">Profile</a></li>
        <li>
          <form action="{% url 'income:search' %}" method="get">
            <input type="text" placeholder="جستـجو" value="{{ request.GET.q }}" name="q"/>

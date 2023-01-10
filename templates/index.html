@@ -41,7 +41,6 @@
 				<li><a href="#page-skills" class="link-page">Skills</a></li>
 				<li><a href="#page-portfolio" class="link-page">Portfolio</a></li>
 				<li><a href="#page-contact" class="link-page">Contact</a></li>
-				<!-- <li><a href="{% url 'cv:index' %}" >Contact</a></li> -->
 			</ul>
 		</div>
 		<!-- /MAIN MENU -->
@@ -50,8 +49,8 @@
 		<div class="section-vcardbody section-home" id="section-home">
 			<!-- Profile pic-->
 			<div class="vcard-profile-pic">
-				<img src="static/cv/img/profile2.jpg" id="profile2"  alt=""/>
-				<img src="static/cv/img/profile.jpg" id="profile1" class="profileActive" alt=""/>
+				<img src="static/cv/img/profile.jpg" id="profile2"  alt="">
+				<img src="static/cv/img/profile.jpg" id="profile1" class="profileActive" alt="">
 			</div>
 			<!-- /Profile pic -->
 			<!-- Description -->
@@ -102,23 +101,23 @@
 
 				<h2 class="section-title2"><i class="fa fa-university"></i>&nbsp; Education</h2>
 
-	            <!-- Resume Item -->
+	            <!-- Resume Item 1-->
 				<div class="resume-item">
 					<!-- Graduation title -->
                   	<h3 class="section-item-title-1">Occupational Health Eng.</h3>
                   	<!-- /Graduation title -->
                   	<!-- Graduation time -->
                   	<h4 class="graduation-time">Tabriz Medical Science of University - 
-						<span class="graduation-date">Graduation July 2017</span>
+						<span class="graduation-date"></span>
 					</h4>
                   	<!-- /Graduation time -->
                   	<!-- content -->
                   	<div class="graduation-description">
-                  	  <p></p>
+                  	  <p>Graduation July 2017</p>
                   	</div>
                   	<!-- /Content -->
 				</div>
-	            <!-- /Resume Item -->
+	            <!-- /Resume Item 1-->
 			</div>
 			<!--/ SECTION: Education -->
 			<!-- SECTION: WORK EXPERIENCE -->
@@ -126,21 +125,21 @@
 
 	            <h2 class="section-title2"><i class="fa fa-flag"></i>&nbsp; Work Experience</h2>
 
-	            <!-- Resume Item -->
+	            <!-- Resume Item 2-->
 				<div class="resume-item">
 					<!-- Work Place -->
                   	<h3 class="section-item-title-1">Freelancer</h3>
                   	<!-- /Work Place -->
                   	<!-- Job Time -->
-                  	<h4 class="job">Web Developer - <span class="job-date">April 2022 - Current</span></h4>
+                  	<h4 class="job">Web Developer - <span class="job-date"></span></h4>
                   	<!-- /Job Time-->
                   	<!-- content -->
                   	<div class="graduation-description">
-                  	  <p></p>
+                  	  <p>April 2022 - Current</p>
                   	</div>
                   	<!-- /Content -->
 				</div>
-	            <!-- /Resume Item -->
+	            <!-- /Resume Item 2-->
 			<!--/ SECTION: WORK EXPERIENCE -->
 
 			<h2 class="section-title2"><i class="fa fa-commenting"></i>&nbsp; Testimonials 
@@ -243,9 +242,14 @@
 	          	<h3 class="section-item-title-2"><i class="fa fa-code"></i>&nbsp;&nbsp; Rabbitmq</h3>
 	          	<!-- /Subtitle -->
 				 <!-- Subtitle -->
-	          	<h3 class="section-item-title-2"><i class="fa fa-code"></i>&nbsp;&nbsp; JQuery</h3>
+	          	<h3 class="section-item-title-2"><i class="fa fa-code"></i>&nbsp;&nbsp; JQuery</h3><br><br>
 	          	<!-- /Subtitle -->
 				 
+				<!-- Section UPCOMINGS -->
+				<h4><b>UPCOMINGS...</b></h4>
+				<p><b>celery, Test, openstreetmap, cryptocurrency payment gateway</b></p>
+				<!-- /Section UPCOMINGS -->
+
 			</div>			
 		</div>
 		<!-- /SECTION: SKILLS  -->	
@@ -287,79 +291,6 @@
 		</div>
 		<!-- /SECTION: PORTFOLIO  -->	
 
-		<!-- SECTION: BLOG-->
-		<div class="section-vcardbody section-page" id="page-blog">
-			<div class="section-blog">
-
-				<!-- Section title -->
-	            <h2 class="section-title">Blog</h2>
-	            <!-- /Section title -->          
-				
-				<!-- BLOG POSTS -->
-				<div class="blog-posts">
-					<!-- blog-post-1 -->
-					{% for post in posts %}
-						<div class="blog-item">
-							<div class="blog-item-wrapper">
-								<!-- blog item thumbnail -->
-								<div class="blog-item-thumb">
-									<!-- <a href="single.html" class="loadPost"><img src="static/cv/img/blog1.jpg" alt=""></a> -->
-									<a href="{% url 'cv:post_detail' post.id %}" class="loadPost"><img src="{{post.thumbnail.url}}" alt=""></a>
-								</div>
-								<!-- /blog item thumbnail -->
-								<!-- Blog item - infos -->
-								<div class="blog-item-infos">
-									<!-- blog-item-title -->
-									<div class="blog-item-title-wrapper">
-										<h2 class="blog-item-title title-border">
-											<a href="{% url 'cv:post_detail' post.id %}" class="loadPost">{{post.title}}</a>
-										</h2>
-									</div>
-									<!-- /blog-item-title -->
-									<!-- blog item - description -->
-									<div class="blog-item-description">
-										<p><a href="{% url 'cv:post_detail' post.id %}" class="loadPost">{{post.text}}</a></p>
-									</div>
-									<!-- /blog-item-description -->
-									<!-- blog item - link -->
-									<div class="blog-item-link">
-										<a href="{% url 'cv:post_detail' post.id %}" class="btn btn-default loadPost">More</a>
-									</div>
-									<!-- /blog item - link -->
-								</div>
-								<!-- /blog item - infos -->
-							</div>
-						</div>
-					{% endfor %}
-					<!-- /blog-post-1 -->
-				</div>
-				 <!-- /BLOG POSTS -->
-				<!-- Pagination -->
-				<div class="section-pagination">
-					<div class="row">
-						<div class="col-xs-12">
-							<span class="pagination-numbers">
-								<a href="#">1</a>
-								<a href="#">2</a>
-							</span>
-						</div>
-					</div>								
-				</div>
-				<!-- /Pagination -->
-			</div>			
-		</div>
-		<!-- /SECTION: BLOG  -->	
- 
-		<!-- SECTION: LOAD BLOG SINGLE  -->
-		<div class="section-vcardbody section-page section-page-single" id="page-blog-single">
-			<div class="section-blog-single">
-				<!-- Load the single.html content via AJAX -->
-				<div id="postHere"></div>			
-				<!-- /Load the single.html content via AJAX -->
-			</div>			
-		</div>
-		<!-- /SECTION: LOAD BLOG SINGLE  -->
-
 		<!-- SECTION: CONTACT-->
 		<div class="section-vcardbody section-page" id="page-contact">
 			<div class="section-contact">
@@ -391,30 +322,6 @@
 </section>
 <!-- /Main Content
 ================================================== -->
-
-<!-- Contact Form - Ajax Messages
-========================================================= -->
-<!-- Form Sucess -->
-<div class="form-result modal-wrap" id="contactSuccess">
-  <div class="modal-bg"></div>
-  <div class="modal-content">
-    <h4 class="modal-title"><i class="fa fa-check-circle"></i> Success!</h4>
-    <p>Your message has been sent to us.</p>
-  </div>
-</div>
-<!-- /Form Sucess -->
-<!-- form-error -->
-<div class="form-result modal-wrap" id="contactError">
-  <div class="modal-bg"></div>
-  <div class="modal-content">
-    <h4 class="modal-title"><i class="fa fa-times"></i> Error</h4>
-    <p>There was an error sending your message.</p>
-  </div>
-</div>
-<!-- /form-error -->
-
-<!-- Contact Form - Ajax Messages
-========================================================= -->
 
 {% include 'partials/footer.html' %}
 </body>

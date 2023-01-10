@@ -1,7 +1,7 @@
 
 from django.contrib import admin  
 
-from .models        import Testimonial, Post, Contact
+from .models        import Testimonial, Post, Contact, IpAddress
 # Register your models here.
 
 @admin.register(Testimonial)
@@ -23,6 +23,15 @@ class ContactAdmin(admin.ModelAdmin):
 
     list_display = ('name','email','text','jpublish')
     list_filter = ('email',)                  
-    search_fields = ('email', 'text')			
+    search_fields = ('email', 'text')	
+
+
+@admin.register(IpAddress)
+class IpAddressAdmin(admin.ModelAdmin):
+
+    list_display = ('id','ip_address','first_time_view')
+	
+
+
 
 

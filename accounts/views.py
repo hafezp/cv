@@ -18,9 +18,9 @@ from django.core.mail 								import EmailMessage
 from django.views 									import View
 import random
 
-from .forms 										import ProfileForm, VerifyCodeForm, UserRegistrationForm
+from .forms 										import ProfileForm, UserRegistrationForm
 from .tokens 										import account_activation_token
-from .models 										import User, OtpCode
+from .models 										import User
 from .mixins										import AccessLimitMixin
 
 
@@ -61,7 +61,7 @@ def activate(request, uidb64, token):
 	if user is not None and account_activation_token.check_token(user, token):
 		user.is_active = True
 		user.save()
-		return HttpResponse(' باسپاس از شما اکانت شما فعال شد http://localhost:8000/account/login/ ')
+		return HttpResponse(' باسپاس از شما اکانت شما فعال شد <a href="{% url "account:login" %}">Enter</a> ')
 
 	else:
 		return HttpResponse('Activation link is invalid!')
@@ -96,56 +96,52 @@ class PasswordChange(PasswordChangeView):
 	success_url = reverse_lazy('account:password_change_done')
 
 
-
-
 class PasswordReset(PasswordResetView):
 	success_url = reverse_lazy('account:password_reset_done')
 
-
-	
 
 class PasswordResetConfirm(PasswordResetConfirmView):
 	success_url = reverse_lazy('account:password_reset_complete')
 
 
 
-class UserRegisterVerifyCodeView(LoginRequiredMixin, View):
-	"""
-	need to optimize by setup() method
-	"""
-	form_class = VerifyCodeForm
+# class UserRegisterVerifyCodeView(LoginRequiredMixin, View):
+# 	"""
+# 	need to optimize by setup() method
+# 	"""
+# 	form_class = VerifyCodeForm
 
-	def get(self, request):
+# 	def get(self, request):
 
-		form = self.form_class
-		random_code = random.randint(1000, 9999)
-		otp = OtpCode.objects.filter(phone_number=self.request.user.phone_number).exists()
-		user_condition = self.request.user.is_admin
+# 		form = self.form_class
+# 		random_code = random.randint(1000, 9999)
+# 		otp = OtpCode.objects.filter(phone_number=self.request.user.phone_number).exists()
+# 		user_condition = self.request.user.is_admin
 
-		if not otp and not user_condition:
-			OtpCode.objects.create(phone_number=self.request.user.phone_number, code=random_code)
+# 		if not otp and not user_condition:
+# 			OtpCode.objects.create(phone_number=self.request.user.phone_number, code=random_code)
 		
-		return render(request, 'registration/verify.html', {'form':form,'admin':self.request.user.is_admin})
+# 		return render(request, 'registration/verify.html', {'form':form,'admin':self.request.user.is_admin})
 
 
-	def post(self, request):
+# 	def post(self, request):
 
-		code_instance = OtpCode.objects.get(phone_number=self.request.user.phone_number)
-		form = self.form_class(request.POST)
-		if form.is_valid():
-			cd = form.cleaned_data
-			if cd['code'] == code_instance.code:
+# 		code_instance = OtpCode.objects.get(phone_number=self.request.user.phone_number)
+# 		form = self.form_class(request.POST)
+# 		if form.is_valid():
+# 			cd = form.cleaned_data
+# 			if cd['code'] == code_instance.code:
 	
-				user = self.request.user
-				user.is_admin = True
-				user.save()
+# 				user = self.request.user
+# 				user.is_admin = True
+# 				user.save()
 
-				code_instance.delete()
+# 				code_instance.delete()
 
-				return redirect('/admin')
-			else:
+# 				return redirect('/admin')
+# 			else:
 
-				return redirect('account:verify_code')
-		return redirect('income:home')
+# 				return redirect('account:verify_code')
+# 		return redirect('income:home')
 
 

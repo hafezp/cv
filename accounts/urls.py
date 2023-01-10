@@ -9,7 +9,7 @@ from .views import (Login,
                     PasswordChange,
                     PasswordReset,
                     PasswordResetConfirm,
-                    UserRegisterVerifyCodeView,
+                    # UserRegisterVerifyCodeView,
                     )
 
 from django.contrib.auth.views import (PasswordResetDoneView,
@@ -37,7 +37,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('profile/', ProfileView.as_view(), name = 'profile'),
-    path('verify/', UserRegisterVerifyCodeView.as_view(), name='verify_code'),
+    # path('verify/', UserRegisterVerifyCodeView.as_view(), name='verify_code'),
 
     
   ]

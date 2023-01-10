@@ -7,18 +7,15 @@ from django.views.generic           import DetailView, View
 from .models                        import Testimonial, Post
 from .forms							import ContactForm
 
-
-
 # Create your views here.
 
 
-
 class PostDetailView(DetailView):
-    model = Post
-    template_name = "single.html"  
-    def get_object(self):
-        id=self.kwargs.get('id')
-        return get_object_or_404(Post.objects.all(), id=id)
+	model = Post
+	template_name = "single.html"  
+	def get_object(self):
+		id=self.kwargs.get('id')
+		return get_object_or_404(Post.objects.all(), id=id)
 
 
 def is_ajax(request):
@@ -35,7 +32,7 @@ class ContactFormView(View):
 		context = {
 		'testimonials':Testimonial.objects.all(),
 		'posts':Post.objects.all(),
-		'form':form
+		'form':form,
 		}
 		
 		return render(request, 'index.html', context)
@@ -59,21 +56,25 @@ class ContactFormView(View):
 def custom_page_not_found_view(request, exception):
    
 
-    return render(request, 'cv/404.html')
+	return render(request, 'cv/404.html')
 
 
 def custom_permission_denied_view(request, exception):
    
 
-    return render(request, 'cv/403.html')
+	return render(request, 'cv/403.html')
 
 
 def custom_bad_request_view(request, exception):
    
 
-    return render(request, 'cv/400.html')
+	return render(request, 'cv/400.html')
 
 
 class My500View(View):
-    def dispatch(self, request, *args, **kwargs):
-        return HttpResponse('err 500')
+	def dispatch(self, request, *args, **kwargs):
+		return HttpResponse('err 500')
+
+
+
+

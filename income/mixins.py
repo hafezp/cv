@@ -20,7 +20,7 @@ class FieldsMixin():
 		if request.user.is_superuser:
 			self.fields = '__all__'
 		else:
-			self.fields = ['id','type','category', 'select','persianized_price', 'thumbnail']     
+			self.fields = ['id','type','category', 'select','price', 'thumbnail']     
 		return super().dispatch(request, *args, **kwargs)
 
 

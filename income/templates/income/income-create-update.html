@@ -22,7 +22,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>کاربر {{form.user}}</td>
+          {% if request.user.is_superuser %}
+            <td>کاربر {{form.user}}</td>
+          {% endif %}
         </tr>
         <tr>
           <td>توضیحات {{form.type}}</td>
@@ -54,7 +56,9 @@
           <td>فاکتور {{form.thumbnail}} {{form.thumbnail.help_text}}</td>
         </tr>
         <tr>
-          <td> {{form.publish}} </td>
+          {% if request.user.is_superuser %}
+            <td> {{form.publish}} </td>
+          {% endif %} 
         </tr>
       </tbody>
     </table>

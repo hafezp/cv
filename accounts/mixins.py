@@ -7,6 +7,6 @@ class AccessLimitMixin():
 	def setup(self, request, *args, **kwargs):
 
 		if request.user.is_authenticated:
-			raise Http404('شما قبلا لاگین شده اید دوست من')
+			raise Http404('شما قبلا لاگین شده اید')
 		else:
 			return super().setup(request, *args, **kwargs)

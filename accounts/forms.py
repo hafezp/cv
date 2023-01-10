@@ -1,5 +1,5 @@
 
-from .models 						import User,VerifyCodeModel
+from .models 						import User
 from django 						import forms
 from django.core 					import validators
 from django.core.exceptions 		import ValidationError
@@ -113,11 +113,11 @@ class UserRegistrationForm(forms.Form):
 		return user
 
 
-class VerifyCodeForm(forms.ModelForm):
+# class VerifyCodeForm(forms.ModelForm):
 
-	class Meta:
-		model = VerifyCodeModel
-		fields = '__all__'            
+# 	class Meta:
+# 		model = VerifyCodeModel
+# 		fields = '__all__'            
 
 
 

@@ -17,7 +17,6 @@ from .forms							import CategoryCreateForm
 import random
 
 
-
  
 def persian_num_converter(mystr):
 	numbers ={
@@ -39,24 +38,40 @@ def persian_num_converter(mystr):
 
 @login_required
 def home(request):
-		
+
 	all_incomes = Income.objects.all()
 	sum_earning = all_incomes.filter(user=request.user, select='in').aggregate(sum_earning=Sum('price'))
 	sum_spending = all_incomes.filter(user=request.user, select='out').aggregate(sum_spending=Sum('price'))
 
+	# convert values to str
 	v1 = ''.join(map(str, sum_earning.values()))
 	v2 = ''.join(map(str, sum_spending.values()))
 
+	# convert values to persian numbers
 	new_v1 = persian_num_converter(v1)
 	new_v2 = persian_num_converter(v2)
 
-	if new_v1 is None or new_v2 is None:
+	
+
+	if new_v1 != 'None' and new_v2 != 'None':
 		diff = int(new_v1) - int(new_v2)
 		new_diff = persian_num_converter(str(diff))
-	else:
-		new_v1 ='NoData'
-		new_v2 ='NoData'
-		new_diff ='NoData'
+
+	elif new_v1 == 'None' and new_v2 != 'None':
+		new_v1 = ''
+		diff =  - int(new_v2)
+		new_diff = persian_num_converter(str(diff))
+
+	elif new_v2 == 'None' and new_v1 != 'None':
+		new_v2 = ''
+		diff = int(new_v1) 
+		new_diff = persian_num_converter(str(diff))
+
+	elif new_v1 == 'None' and new_v2 == 'None':
+		new_v1 = ''
+		new_v2 = ''
+		new_diff =''
+
 
 
 	context = {
@@ -145,8 +160,6 @@ class SearchIncomeView(LoginRequiredMixin, ListView):
 		if query is not None:
 			lookup = Q(type__icontains=query) | Q(category__title__icontains=query)
 			return Income.objects.filter(lookup).distinct()
-
-			# return Income.objects.filter(type__icontains=query)
 		return Income.objects.all()
 
 
