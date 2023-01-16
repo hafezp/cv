@@ -77,7 +77,7 @@ class UserRegistrationForm(forms.Form):
 		label='تکرار کلمه ی عبور'
 	)
 
-	def clean_email(self):
+	def clean_email(self): 
 		email = self.cleaned_data['email']
 		user = User.objects.filter(email=email).exists()
 		if user:

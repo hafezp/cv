@@ -52,7 +52,6 @@ def home(request):
 	new_v2 = persian_num_converter(v2)
 
 	
-
 	if new_v1 != 'None' and new_v2 != 'None':
 		diff = int(new_v1) - int(new_v2)
 		new_diff = persian_num_converter(str(diff))
@@ -71,8 +70,6 @@ def home(request):
 		new_v1 = ''
 		new_v2 = ''
 		new_diff =''
-
-
 
 	context = {
 
@@ -119,14 +116,11 @@ class IncomeDelete(UserAccessMixin, DeleteView):
 	success_url = reverse_lazy('income:incomelist')
 
 
-class incomeDetail(LoginRequiredMixin, DetailView):
+class IncomeDetail(LoginRequiredMixin, DetailView):
 	model = Income
 	def get_object(self):
 		id=self.kwargs.get('id')
 		income =  get_object_or_404(Income.objects.all(), id=id)
-		# ip_address = self.request.user.ip_address
-		# if ip_address not in income.hits.all():
-		# 	income.hits.add(ip_address)
 		return income
 
 

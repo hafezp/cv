@@ -6,9 +6,6 @@ from django.utils 				import timezone
 from django.utils.html 			import format_html
 from django.db.models 			import Q
 
-
-
-
 from extensions.utils 			import jalali_converter, persian_num_converter
 from accounts.models 			import User
 # Create your models here.

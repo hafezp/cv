@@ -1,8 +1,8 @@
 
 from django.http 					import JsonResponse, HttpResponse
 from django.core 					import serializers
-from django.shortcuts               import get_object_or_404, render
-from django.views.generic           import DetailView, View
+from django.shortcuts               import render
+from django.views.generic           import View
 
 from .models                        import Testimonial, Post
 from .forms							import ContactForm
@@ -10,12 +10,7 @@ from .forms							import ContactForm
 # Create your views here.
 
 
-class PostDetailView(DetailView):
-	model = Post
-	template_name = "single.html"  
-	def get_object(self):
-		id=self.kwargs.get('id')
-		return get_object_or_404(Post.objects.all(), id=id)
+
 
 
 def is_ajax(request):
