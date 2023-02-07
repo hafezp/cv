@@ -1,10 +1,9 @@
-
 from rest_framework.generics 	import ListCreateAPIView,RetrieveUpdateDestroyAPIView
 from rest_framework.views       import APIView
 from rest_framework             import status
 from rest_framework.response    import Response
 from rest_framework.viewsets	import ViewSet, ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from django.shortcuts 			import get_object_or_404
 from django.contrib.auth    	import get_user_model  
@@ -20,7 +19,8 @@ from .serializers 				import (ContactSerializer,
 										IncomeSerializer,
 										TestimonialSerializer,
 										IpAddressSerializer,
-										CategorySerializer)
+										CategorySerializer,
+										UserProfileSerializer)
 
 
 
@@ -38,6 +38,7 @@ class IncomeViewSet(ModelViewSet):
 
 	queryset = Income.objects.all()
 	serializer_class = IncomeSerializer
+
 
 
 	def get_permissions(self):  		
@@ -96,12 +97,13 @@ class UserCreateView(APIView):
 		Create a new user
 	"""
 	permission_classes = [IsSuperUser,]
-	serializer_class = UserSerializer
-
+	serializer_class = AnonUserRegisterSerializer
+ 
 	def post(self, request):
-		srz_data = UserSerializer(data=request.data)
+		srz_data = AnonUserRegisterSerializer(data=request.data)
 		if srz_data.is_valid():
-			srz_data.save()
+			# srz_data.save()
+			srz_data.create(srz_data.validated_data)
 			return Response(srz_data.data, status=status.HTTP_201_CREATED)
 		return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -128,7 +130,7 @@ class UserDeleteView(APIView):
 class AnonUserRegisterView(APIView):
 
 	def post(self, request):
-		ser_data = AnonUserRegisterSerializer(data=request.POST)
+		ser_data = AnonUserRegisterSerializer(data=request.data)
 		if ser_data.is_valid(): 
 			ser_data.create(ser_data.validated_data)
 			return Response(ser_data.data, status=status.HTTP_201_CREATED)
@@ -150,14 +152,14 @@ class UserProfileViewSet(ViewSet):
 		user = get_object_or_404(self.queryset, pk=pk)
 		if user != request.user:  
 			return Response(self.permission_context)
-		srz_data = AnonUserRegisterSerializer(instance=user)
+		srz_data = UserProfileSerializer(instance=user)
 		return Response(data=srz_data.data)
 
 	def partial_update(self, request, pk=None):
 		user = get_object_or_404(self.queryset, pk=pk)
 		if user != request.user:  
 			return Response(self.permission_context)
-		srz_data = AnonUserRegisterSerializer(instance=user, data=request.POST, partial=True)
+		srz_data = UserProfileSerializer(instance=user, data=request.POST, partial=True)
 		if srz_data.is_valid():
 			srz_data.save()
 			return Response(data=srz_data.data)

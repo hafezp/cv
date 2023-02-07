@@ -2,27 +2,29 @@ from django.contrib 			import admin
 from django.contrib.auth.admin  import UserAdmin as BaseUserAdmin
 from .forms 					import UserCreationForm, UserChangeForm
 from .models 					import User
-
+from extensions.utils 			import jalali_converter
 # for django admin
 class UserAdmin(BaseUserAdmin):
 	form = UserChangeForm
 	add_form = UserCreationForm
 
-	list_display = ('full_name','email', 'phone_number', 'is_admin')
+	list_display = ('username','email', 'phone_number', 'is_admin','id')
 	list_filter = ('is_admin',)
 	readonly_fields = ('last_login',)
 
+
+
 	fieldsets = (     
-		('Main', {'fields':('email', 'phone_number', 'full_name', 'password')}),
+		('Main', {'fields':('email', 'phone_number', 'username', 'password')}),
 		('Permissions', {'fields':('is_active', 'is_admin', 'is_superuser', 'last_login', 'groups', 'user_permissions')}),
 	)
 
 	add_fieldsets = ( 
-		(None, {'fields':('phone_number', 'email', 'full_name', 'password1', 'password2')}),
+		(None, {'fields':('phone_number', 'email', 'username', 'password1', 'password2')}),
 	)
 
-	search_fields = ('email', 'full_name')
-	ordering = ('full_name',)
+	search_fields = ('email', 'username')
+	ordering = ('username',)
 	filter_horizontal = ('groups', 'user_permissions')
 
 	def get_form(self, request, obj=None, **kwargs):
@@ -31,7 +33,6 @@ class UserAdmin(BaseUserAdmin):
 		if not is_superuser:
 			form.base_fields['is_superuser'].disabled = True
 		return form
-
 
 admin.site.register(User, UserAdmin)
 

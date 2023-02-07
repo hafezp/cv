@@ -49,7 +49,7 @@ class Income(TimeStampedModel):
 		)
 	user = models.ForeignKey(User, on_delete=SET_NULL,null=True,blank=True)
 	type = models.CharField(max_length=50, verbose_name='توضیح هزینه')
-	category = models.ManyToManyField(Category, related_name='icategory', verbose_name='دسته بندی')
+	category = models.ManyToManyField(Category, related_name='income', verbose_name='دسته بندی')
 	select = models.CharField(max_length=3, choices=INCOME_CHOICES, default='دخل', verbose_name='نوع هزینه')
 	price = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, verbose_name="درآمد")
 	thumbnail = models.ImageField(upload_to='media/',validators=[validate_image] ,null=True, blank=True, help_text="حداکثر حجم 1 مگابایت می باشد.") 

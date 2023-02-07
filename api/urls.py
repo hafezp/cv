@@ -19,6 +19,7 @@ from .views         import (
 app_name = 'api'
 
 urlpatterns = [ 
+    
 path("contact/list-create", ContactListCreateView.as_view(), name="contact-list-create"),
 path("contact/retrieve-update-destroy/<int:pk>", ContractRetrieveUpdateDestroyView.as_view(), name="contract-retrieve-update-destroy"),
 

@@ -19,7 +19,7 @@ class ProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ['email','phone_number','full_name']
+		fields = ['email','phone_number','username']
 
 
 # for django admin 
@@ -29,7 +29,7 @@ class UserCreationForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ('email', 'phone_number', 'full_name')
+		fields = ('email', 'phone_number', 'username')
 
 	def clean_password2(self):
 		cd = self.cleaned_data
@@ -50,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ('email', 'phone_number', 'full_name', 'password', 'last_login')
+		fields = ('email', 'phone_number', 'username', 'password', 'last_login')
 
 
 #anon user self-register
@@ -60,8 +60,8 @@ class UserRegistrationForm(forms.Form):
 							 validators=[validators.EmailValidator('ایمیل وارد شده معتبر نمیباشد')],
 							 label='ایمیل')
 
-	full_name = forms.CharField(widget=forms.TextInput,
-								label='نام کامل')
+	username = forms.CharField(widget=forms.TextInput,
+								label='نام کاربری')
 
 	phone = forms.CharField(max_length=11, 
 							validators=[validators.MinLengthValidator(10, 'تعداد کاراکترهای شماره همراه وارد شده نمیتواند کمتر از 10 باشد')],
@@ -83,7 +83,7 @@ class UserRegistrationForm(forms.Form):
 		if user:
 			raise ValidationError('This email already exists')
 
-		if not email.endswith("@gmail.com" or "@yahoo.com"):
+		if not email.endswith("@gmail.com" or "@yahoo.com" or ".ir"):
 			raise ValidationError("Sorry, perhaps you use fakemail but now we just accept Gmail and Yahoo services ")
 
 		return email
@@ -107,7 +107,7 @@ class UserRegistrationForm(forms.Form):
 	def save(self, commit=True):
 
 		cd = self.cleaned_data
-		user = User(email=cd['email'], full_name=cd['full_name'],
+		user = User(email=cd['email'], username=cd['username'],
 		 			phone_number=cd['phone'])
 		user.set_password(cd['password2'])
 		return user

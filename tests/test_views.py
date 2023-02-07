@@ -25,7 +25,7 @@ from income.views                   import home, CategoryCreateView
 
 #     def setUp(self):
 #         self.client = Client()
-#         self.user = User.objects.create_user(full_name='hafez',
+#         self.user = User.objects.create_user(username='hafez',
 #                                             phone_number='09353967479', 
 #                                             email='lennon@thebeatles.com', 
 #                                             password='1')
@@ -40,7 +40,7 @@ from income.views                   import home, CategoryCreateView
 # class SamplePageTemplateNameTestCase(TestCase):
 #     def setUp(self):
 #         self.client = Client()
-#         self.user = User.objects.create_user(full_name='hafez',
+#         self.user = User.objects.create_user(username='hafez',
 #                                             phone_number='09353967479', 
 #                                             email='hafez@paidary.com', 
 #                                             password='1')
@@ -55,7 +55,7 @@ from income.views                   import home, CategoryCreateView
 # class ListViewTestCase(TestCase):
 #     def setUp(self):
 #         self.client = Client()
-#         self.user = User.objects.create_user(full_name='hafez',
+#         self.user = User.objects.create_user(username='hafez',
 #                                             phone_number='09353967479', 
 #                                             email='hafez@paidary.com', 
 #                                             password='1')

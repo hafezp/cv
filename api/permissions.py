@@ -11,18 +11,12 @@ class IsSuperUser(BasePermission):
 
 
 class IsOwnerOrReadOnly(BasePermission):
+	message = 'permission denied, you are not the owner'
+	def has_permission(self, request, view):
+		return request.user.is_authenticated and request.user
 
-    def has_object_permission(self, request, view, obj):
+	def has_object_permission(self, request, view, obj):
+		if request.method in SAFE_METHODS:
+			return True
 
-
-
-        return bool(
-        	# get access to superuser
-        	request.user.is_authenticated and 
-
-        	request.user.is_superuser or
-
-        	# get access to author of objet
-
-		obj.user == request.user                
-        )
+		return obj.user == request.user

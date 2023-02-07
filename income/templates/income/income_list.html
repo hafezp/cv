@@ -28,7 +28,6 @@
           <tbody>
             {% for income in income %}
               <tr>
-                
                 <td>{{income.jpublish}}</td>
                 <td><a href="{% url 'income:detail' income.pk %}">{{income.type}}</a></td>
                 <td>{% if category %}
@@ -46,7 +45,7 @@
                     {% endif %}
                 </td>
                 <td>{{income.persianized_price}}</td>
-                <td>{{income.user.full_name}}</td>
+                <td>{{income.user.username}}</td>
                 <td>{% if income.thumbnail %}
                   <img width=80 src="{{income.thumbnail.url}}">
                   {% else %}

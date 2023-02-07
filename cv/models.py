@@ -90,8 +90,8 @@ class Contact(TimeStamped):
 
 
 class IpAddress(models.Model):
-	pub_date = models.DateTimeField('زمان اولین بازدید')
-	ip_address = models.GenericIPAddressField(verbose_name='آدرس')
+	pub_date = models.DateTimeField('زمان اولین بازدید', default=timezone.now)
+	ip_address = models.GenericIPAddressField(blank=True, null=True ,verbose_name='آدرس')
 
 	def first_time_view(self):
 		return jalali_converter(self.pub_date)
@@ -100,7 +100,7 @@ class IpAddress(models.Model):
 	class Meta:
 		verbose_name = "آی‌پی"
 		verbose_name_plural = "آی‌پی ها"
-		ordering = ['pub_date']
+		ordering = ['-pub_date']
 
 	def __str__(self):
 		return self.ip_address
