@@ -29,7 +29,7 @@
             {% for income in income %}
               <tr>
                 <td>{{income.jpublish}}</td>
-                <td><a href="{% url 'income:detail' income.pk %}">{{income.type}}</a></td>
+                <td><a href="{% url 'income:detail' income.pk %}">{{income.explanation}}</a></td>
                 <td>{% if category %}
                       {% for cat in income.category.all %}
                         <p>{{cat.title}}</p>

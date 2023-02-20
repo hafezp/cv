@@ -15,7 +15,7 @@
           <thead>
             <tr>
               <th>زمان انتشار</th>
-              <th>Type</th>
+              <th>Explanation</th>
               <th>Category</th>
               <th>Select</th>
               <th>Price</th>
@@ -29,7 +29,7 @@
             {% for income in income %}
               <tr>
                 <td>{{income.jpublish}}</td>
-                <td><a href="{% url 'income:detail' income.pk %}">{{income.type}}</a></td>
+                <td><a href="{% url 'income:detail' income.pk %}">{{income.explanation}}</a></td>
                 <td>{% if income.category %}
                       {% for cat in income.category.all %}
                         <p>{{cat.title}}</p>

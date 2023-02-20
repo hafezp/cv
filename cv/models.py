@@ -77,6 +77,11 @@ class Contact(TimeStamped):
 	email = models.EmailField(verbose_name='Email')
 	text = models.TextField(max_length=250, verbose_name='Message')
 
+	class Meta:
+		verbose_name = "پیام"
+		verbose_name_plural = "پیام ها"
+		ordering = ['-publish']
+
 
 	def jpublish(self):
 		return jalali_converter(self.publish)

@@ -20,7 +20,7 @@ class FieldsMixin():
 		if request.user.is_superuser:
 			self.fields = '__all__'
 		else:
-			self.fields = ['id','type','category', 'select','price', 'thumbnail']     
+			self.fields = ['id','explanation','category', 'select','price', 'thumbnail']     
 		return super().dispatch(request, *args, **kwargs)
 
 
@@ -62,13 +62,13 @@ def persian_num_converter(mystr):
 	return mystr
 
 class FormContextValidMixin():   
-	'''persianazing type item of income model'''
+	'''persianazing explanation item of income model'''
 					 
 	def form_valid(self, form):
 
 		self.obj = form.save(commit=False)
 		
-		self.obj.type = persian_num_converter(self.obj.type)
+		self.obj.explanation = persian_num_converter(self.obj.explanation)
 		self.obj.persianized_price = persian_num_converter(str(self.obj.persianized_price))
 
 

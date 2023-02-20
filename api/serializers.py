@@ -65,12 +65,13 @@ class AnonUserRegisterSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Contact
-		fields = ('id','name', 'email', 'text')
+		fields = ('name', 'email', 'text')
 
 class TestimonialSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Testimonial
-		fields = ('id','message', 'thumbnail', 'full_name', 'job_position')
+		fields = ('message', 'thumbnail', 'full_name', 'job_position')
+		
 
 class IpAddressSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -82,28 +83,75 @@ class UserForCategorySerializer(serializers.ModelSerializer):
 
 	class Meta:							 
 		model = get_user_model()
-		fields = ('email',)
+		fields = ('username',)
 
 class CategorySerializer(serializers.ModelSerializer):
+
+	"""The First Category Model serialiser by default"""
+
 	user = UserForCategorySerializer(many=True, read_only=True)
+	
 	class Meta:
 		model = Category
 		fields = ('id','title', 'slug', 'user')
 
+class CategoryCreateSerializer(serializers.ModelSerializer):
+
+	"""The Second Category Model serialiser for create"""
+
+	def create(self, validated_data):
+		"""Autocomplete of User"""
+		new_category = Category(
+			title=validated_data['title'],
+			slug=validated_data['slug'],
+			)	
+		new_category.save()
+		new_category.user.add(self.context['request'].user)
+		return new_category
+
+	
+	class Meta:
+		model = Category
+		fields = ('title', 'slug')
+
 		
 class IncomeSerializer(serializers.ModelSerializer):
 
+	"""The First Income Model serialiser by default"""
+
 	category = CategorySerializer(many=True, read_only=True)
 
-	def get_username(self, obj):	
+	def get_user(self, obj):	
 
 		return f'{obj.user.username} - {obj.user.id}'    
 
-	username = serializers.SerializerMethodField("get_username") 
+	user = serializers.SerializerMethodField("get_user") 
 
 	class Meta:
 		model = Income
-		fields = ('id','username', 'type', 'category','select','price','thumbnail', 'publish')
+		fields = ('id','user', 'explanation', 'category','select','price','thumbnail', 'publish')
+
+class IncomeCreateSerializer(serializers.ModelSerializer):
+
+	"""The Second Income Model serialiser for create"""
+
+
+
+	def create(self, validated_data):
+		new_income = Income(
+			explanation=validated_data['explanation'],
+			select=validated_data['select'],
+			price=validated_data['price'],
+			)
+		new_income.user = self.context['request'].user	
+		new_income.save()
+		new_income.category.set(validated_data['category'])
+		return new_income
+
+
+	class Meta:
+		model = Income
+		fields = ('explanation', 'category','select','price','thumbnail', 'publish')
 
 
 

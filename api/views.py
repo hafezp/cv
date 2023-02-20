@@ -3,7 +3,7 @@ from rest_framework.views       import APIView
 from rest_framework             import status
 from rest_framework.response    import Response
 from rest_framework.viewsets	import ViewSet, ModelViewSet
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 from django.shortcuts 			import get_object_or_404
 from django.contrib.auth    	import get_user_model  
@@ -17,9 +17,11 @@ from .serializers 				import (ContactSerializer,
 										UserSerializer,
 										AnonUserRegisterSerializer,
 										IncomeSerializer,
+										IncomeCreateSerializer,
 										TestimonialSerializer,
 										IpAddressSerializer,
 										CategorySerializer,
+										CategoryCreateSerializer,
 										UserProfileSerializer)
 
 
@@ -37,8 +39,16 @@ class ContractRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 class IncomeViewSet(ModelViewSet):
 
 	queryset = Income.objects.all()
-	serializer_class = IncomeSerializer
+	# serializer_class = IncomeSerializer
 
+	serializer_classes = {
+		'create': IncomeCreateSerializer, # serializer used on post
+	}
+
+	default_serializer_class = IncomeSerializer # Your default serializer
+
+	def get_serializer_class(self): # for Viewset
+		return self.serializer_classes.get(self.action, self.default_serializer_class)
 
 
 	def get_permissions(self):  		
@@ -53,7 +63,16 @@ class IncomeViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
 
 	queryset = Category.objects.all()
-	serializer_class = CategorySerializer
+	# serializer_class = CategorySerializer
+
+	serializer_classes = {
+		'create': CategoryCreateSerializer, # serializer used on post
+	}
+
+	default_serializer_class = CategorySerializer # Your default serializer
+
+	def get_serializer_class(self): # for Viewset
+		return self.serializer_classes.get(self.action, self.default_serializer_class)
 
 
 	def get_permissions(self):  		

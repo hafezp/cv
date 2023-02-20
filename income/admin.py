@@ -8,10 +8,10 @@ from .models 						import Income, Category
 
 @admin.register(Income)
 class IncomeAdmin(admin.ModelAdmin):
-	list_display = ('user','type','display_category','select','persianized_price','jpublish','thumbnail_tag','id')
-	list_filter = ('user', 'type')                  
+	list_display = ('user','explanation','display_category','select','persianized_price','jpublish','thumbnail_tag','id')
+	list_filter = ('user', 'explanation')                  
 	search_fields = ('title', 'status')			
-	ordering = ['user', 'type']		
+	ordering = ['user', 'explanation']		
 
 	def display_category(self,obj):                   
 		return ', '.join([ category.title for category in obj.category.all() ])

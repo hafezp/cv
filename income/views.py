@@ -152,7 +152,7 @@ class SearchIncomeView(LoginRequiredMixin, ListView):
 	def get_queryset(self):
 		query = self.request.GET.get('q')
 		if query is not None:
-			lookup = Q(type__icontains=query) | Q(category__title__icontains=query)
+			lookup = Q(explanation__icontains=query) | Q(category__title__icontains=query)
 			return Income.objects.filter(lookup).distinct()
 		return Income.objects.all()
 
